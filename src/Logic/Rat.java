@@ -8,56 +8,154 @@ public class Rat {
 	int Passos = 0;
 	int estado = 1;
 	int FoodCount = 0;
-	int[][] RememberFood = new int[15][15];
-	boolean PaCima, PaBaixo, PaDireita, PaEsquerda;
+	public int[][] RememberFood = new int[15][15];
+	public boolean PaCima = false, PaBaixo = false, PaDireita = true, PaEsquerda = false;
 	boolean FoodDireita = false, FoodEsquerda = false, FoodCima = false, FoodBaixo = false;
-	
+
 	public Point getPoint() {
 		return point;
 	}
+	
 
-	public Rat(){
-		for(int i = 0; i<15;i++){
-			for(int j = 0; j<15; j++){
+	public Rat() {
+		for (int i = 0; i < 15; i++) {
+			for (int j = 0; j < 15; j++) {
 				RememberFood[i][j] = 0;
 			}
 		}
+		RememberFood[0][0] = 3;// posicao sempre vazio
+
 	}
 
 	public void see(int[][] food) {
+
 		FoodDireita = false;
 		FoodEsquerda = false;
 		FoodCima = false;
 		FoodBaixo = false;
+
 		if (point.x - 1 >= 0) {
 			if (food[point.x - 1][point.y] == 5) {
 				RememberFood[point.x - 1][point.y] = 1;
 				FoodCima = true;
+				if ((point.y - 1) >= 0) {
+					if (RememberFood[point.x - 1][point.y - 1] != 3
+							&& RememberFood[point.x - 1][point.y - 1] != 1) {
+						RememberFood[point.x - 1][point.y - 1] = 2;
+					}
+				}
+
+				if ((point.x - 2) >= 0) {
+					if (RememberFood[point.x - 2][point.y] != 3
+							&& RememberFood[point.x - 2][point.y] != 1) {
+						RememberFood[point.x - 2][point.y] = 2;
+					}
+				}
+				if ((point.y + 1) < 15) {
+					if (RememberFood[point.x - 1][point.y + 1] != 3
+							&& RememberFood[point.x - 1][point.y + 1] != 1) {
+						RememberFood[point.x - 1][point.y + 1] = 2;
+					}
+				}
+			} else {
+				RememberFood[point.x - 1][point.y] = 3;
+				
 			}
 		}
 		if (point.x + 1 < 15) {
 			if (food[point.x + 1][point.y] == 5) {
 				RememberFood[point.x + 1][point.y] = 1;
 				FoodBaixo = true;
+				if ((point.y + 1) < 15) {
+					if (RememberFood[point.x + 1][point.y + 1] != 3 
+							&& RememberFood[point.x + 1][point.y + 1] != 1) {
+						RememberFood[point.x + 1][point.y + 1] = 2;
+					}
+				}
+
+				if ((point.x + 2) < 15) {
+					if (RememberFood[point.x + 2][point.y] != 3
+							&& RememberFood[point.x + 2][point.y] != 1) {
+						RememberFood[point.x + 2][point.y] = 2;
+					}
+				}
+
+				if ((point.y - 1) >= 0) {
+					if (RememberFood[point.x + 1][point.y - 1] != 3
+							&& RememberFood[point.x + 1][point.y - 1] != 1) {
+						RememberFood[point.x + 1][point.y - 1] = 2;
+					}
+				}
+			} else {
+				RememberFood[point.x + 1][point.y] = 3;
+				
+				
 			}
 		}
 		if (point.y - 1 >= 0) {
 			if (food[point.x][point.y - 1] == 5) {
 				RememberFood[point.x][point.y - 1] = 1;
 				FoodEsquerda = true;
+				if ((point.x + 1) >= 0) {
+					if (RememberFood[point.x + 1][point.y - 1] != 3
+							&& RememberFood[point.x + 1][point.y - 1] != 1) {
+						RememberFood[point.x + 1][point.y - 1] = 2;
+					}
+				}
+
+				if ((point.y - 2) >= 0) {
+					if (RememberFood[point.x][point.y - 2] != 3
+							&& RememberFood[point.x][point.y - 2] != 1) {
+						RememberFood[point.x][point.y - 2] = 2;
+					}
+				}
+
+				if ((point.x - 1) >= 0) {
+					if (RememberFood[point.x - 1][point.y - 1] != 3
+							&& RememberFood[point.x - 1][point.y - 1] != 1) {
+						RememberFood[point.x - 1][point.y - 1] = 2;
+					}
+				}
+			} else {
+				RememberFood[point.x][point.y - 1] = 3;
+				
+
 			}
 		}
 		if (point.y + 1 < 15) {
 			if (food[point.x][point.y + 1] == 5) {
 				RememberFood[point.x][point.y + 1] = 1;
 				FoodDireita = true;
+				if ((point.x - 1) >= 0) {
+					if (RememberFood[point.x - 1][point.y + 1] != 3 
+							&& RememberFood[point.x - 1][point.y + 1] != 1) {
+						RememberFood[point.x - 1][point.y + 1] = 2;
+					}
+				}
+
+				if ((point.y + 2) < 15) {
+					if (RememberFood[point.x][point.y + 2] != 3
+							&& RememberFood[point.x][point.y + 2] != 1) {
+						RememberFood[point.x][point.y + 2] = 2;
+					}
+				}
+
+				if ((point.x + 1) < 15) {
+					if (RememberFood[point.x + 1][point.y + 1] != 3
+							&& RememberFood[point.x + 1][point.y + 1] != 1) {
+						RememberFood[point.x + 1][point.y + 1] = 2;
+					}
+				}
+			}else{
+				RememberFood[point.x][point.y + 1] = 3;
 			}
 		}
+		
 	}
 
 	public int[][] comer(int[][] food) {
 		food[point.x][point.y] = 6;
-		RememberFood[point.x][point.y] = 0;
+		RememberFood[point.x][point.y] = 3;
 		FoodCount++;
 		return food;
 	}
@@ -65,21 +163,22 @@ public class Rat {
 	public int[][] andarPaCima(int[][] food) {
 		if (PaCima) {
 			Passos++;
+			point.x--;
+			if (FoodCima) {
+				comer(food);
+				FoodCima = false;
+			}
 		} else {
 			if (PaDireita || PaEsquerda) {
-				Passos = Passos + 2;
+				Passos++;
 				PaDireita = false;
 				PaEsquerda = false;
+				PaCima = true;
 			} else {
-				Passos = Passos + 3;
+				Passos++;
 				PaBaixo = false;
+				PaDireita = true;
 			}
-		}
-		point.x--;
-		PaCima = true;
-		if (FoodCima) {
-			comer(food);
-			FoodCima = false;
 		}
 		return food;
 	}
@@ -87,21 +186,22 @@ public class Rat {
 	public int[][] andarPaBaixo(int[][] food) {
 		if (PaBaixo) {
 			Passos++;
+			point.x++;
+			if (FoodBaixo) {
+				comer(food);
+				FoodBaixo = false;
+			}
 		} else {
 			if (PaDireita || PaEsquerda) {
-				Passos = Passos + 2;
+				Passos++;
 				PaDireita = false;
 				PaEsquerda = false;
+				PaBaixo = true;
 			} else {
-				Passos = Passos + 3;
+				Passos++;
 				PaCima = false;
+				PaEsquerda = true;
 			}
-		}
-		point.x++;
-		PaBaixo = true;
-		if (FoodBaixo) {
-			comer(food);
-			FoodBaixo = false;
 		}
 		return food;
 	}
@@ -109,21 +209,22 @@ public class Rat {
 	public int[][] andarPaDireita(int[][] food) {
 		if (PaDireita) {
 			Passos++;
+			point.y++;
+			if (FoodDireita) {
+				comer(food);
+				FoodDireita = false;
+			}
 		} else {
 			if (PaCima || PaBaixo) {
-				Passos = Passos + 2;
+				Passos++;
 				PaCima = false;
 				PaBaixo = false;
+				PaDireita = true;
 			} else {
-				Passos = Passos + 3;
+				Passos++;
 				PaEsquerda = false;
+				PaCima = true;
 			}
-		}
-		point.y++;
-		PaDireita = true;
-		if (FoodDireita) {
-			comer(food);
-			FoodDireita = false;
 		}
 		return food;
 	}
@@ -131,21 +232,22 @@ public class Rat {
 	public int[][] andarPaEsquerda(int[][] food) {
 		if (PaEsquerda) {
 			Passos++;
+			point.y--;
+			if (FoodEsquerda) {
+				comer(food);
+				FoodEsquerda = false;
+			}
 		} else {
 			if (PaCima || PaBaixo) {
-				Passos = Passos + 2;
+				Passos++;
 				PaCima = false;
 				PaBaixo = false;
+				PaEsquerda = true;
 			} else {
-				Passos = Passos + 3;
+				Passos++;
 				PaDireita = false;
+				PaBaixo = true;
 			}
-		}
-		point.y--;
-		PaEsquerda = true;
-		if (FoodEsquerda) {
-			comer(food);
-			FoodEsquerda = false;
 		}
 		return food;
 	}
