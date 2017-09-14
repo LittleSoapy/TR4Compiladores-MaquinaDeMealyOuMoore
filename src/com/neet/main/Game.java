@@ -34,7 +34,7 @@ public class Game implements ApplicationListener {
 
 	
 	public void render() {
-		Gdx.gl30.glClearColor(0, 0, 0, 1);
+		Gdx.gl30.glClearColor(0.85f, 0.85f, 0.85f, 1.0f);
         Gdx.gl30.glBlendFunc(GL30.GL_SRC_ALPHA, GL30.GL_ONE_MINUS_SRC_ALPHA);
         Gdx.gl30.glClear(GL30.GL_COLOR_BUFFER_BIT);
         camera.update();

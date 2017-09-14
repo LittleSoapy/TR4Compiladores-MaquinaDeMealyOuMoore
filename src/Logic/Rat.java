@@ -5,9 +5,9 @@ import java.awt.Point;
 public class Rat {
 
 	public Point point = new Point(0, 0);
-	int Passos = 0;
-	int estado = 1;
-	int FoodCount = 0;
+	public int Passos = 0;
+	public int estado = 1;
+	public int FoodCount = 0;
 	public boolean PaCima, PaBaixo, PaDireita, PaEsquerda;
 	int aDireita, aEsquerda, aFrente, aTras;
 

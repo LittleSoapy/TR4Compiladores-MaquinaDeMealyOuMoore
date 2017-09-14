@@ -10,7 +10,7 @@ public class MainDesktop {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "Gaimu";
 		cfg.width = 480;
-		cfg.height = 480;
+		cfg.height = 510;
 		cfg.useGL30 = true;
 		cfg.resizable = false;
 		new LwjglApplication(new Game(), cfg);

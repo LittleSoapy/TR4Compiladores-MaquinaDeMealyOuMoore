@@ -1,5 +1,8 @@
 package com.neet.gamestates;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.neet.main.Game;
@@ -14,8 +17,13 @@ public class PlayState extends GameState {
 	TiledMapTile TilePacManEsquerda = tiledMap.getTileSets().getTileSet("Ground").getTile(33);
 	TiledMapTile TilePacManCima = tiledMap.getTileSets().getTileSet("Ground").getTile(41);
 	Problem problema;
+	SpriteBatch batch;
+	BitmapFont font;
+	String Passos = "";
+	String Comidas = "";
 
 	int timer = 0;
+	int timerLimit = 1;
 
 	public PlayState(GameStateManager gsm) {
 		super(gsm);
@@ -23,8 +31,14 @@ public class PlayState extends GameState {
 	}
 
 	public void init() {
+        batch = new SpriteBatch();    
+        font = new BitmapFont();
+        font.setColor(Color.BLACK);
+		
 		int[][] food = new int[15][15];
-		tiledMap = new TmxMapLoader().load("res/maps/map1.tmx");
+		//tiledMap = new TmxMapLoader().load("res/maps/map1.tmx");
+		//tiledMap = new TmxMapLoader().load("res/maps/map2.tmx");
+		tiledMap = new TmxMapLoader().load("res/maps/map3.tmx");
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 		TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap.getLayers().get("Food");
 		int x = 0, y = 0;
@@ -36,19 +50,17 @@ public class PlayState extends GameState {
 			x = 0;
 			y++;
 		}
-		// tiledMap.getTileSets().getTileSet("Rat").getTile(1);
 		problema = new Problem(food);
-
-		/*
-		 * x = 1; y = 0; layer.getCell(x, 14 -
-		 * y).setTile(tiledMap.getTileSets().getTile(6));
-		 */
+		
+		Passos = "Passos: " + problema.rato.Passos+"";
+		Comidas = "Bolinhas: " + problema.rato.FoodCount + "/" + problema.maxFood;
+		
 
 	}
 
 	public void update(float dt) {
 		// o timer no 60 é equivalente a 1 segundo de intervalo
-		if (timer == 30) {
+		if (timer == timerLimit) {
 			
 			timer = 0;
 			problema.machine();
@@ -94,12 +106,27 @@ public class PlayState extends GameState {
 				}
 			}
 		}
+		Passos = "Passos: " + problema.rato.Passos+"";
+		Comidas = "Bolinhas: " + problema.rato.FoodCount + "/" + problema.maxFood;
 		timer++;
 	}
 
 	public void draw() {
+		
 		tiledMapRenderer.setView(Game.camera);
 		tiledMapRenderer.render();
+		
+		batch.begin();
+        font.draw(batch, Passos, 5+0*32 , Game.HEIGHT - 10);
+        font.draw(batch, Comidas, (5+4*32)-16 , Game.HEIGHT - 10);
+        font.draw(batch, "Estado: " + problema.rato.estado, (5+8*32)+5 , Game.HEIGHT - 10);
+        
+        if(problema.rato.estado == 0) {
+            font.setColor(Color.RED);
+            font.draw(batch, "ESTADO FINAL", 5+11*32  , Game.HEIGHT - 10);
+        }
+        batch.end();
+		
 	}
 
 	public void handleInput() {
