@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - DesktopLauncher",
+            "request": "launch",
+            "mainClass": "com.compiladores.trabalho.desktop.DesktopLauncher",
+            "projectName": "TR4Compiladores-MaquinaDeMealyOuMoore-desktop"
+        }
+    ]
+}
